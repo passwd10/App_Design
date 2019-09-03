@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/select_bar"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/select_first"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:text="#뉴스"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/select_second"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:textColor="@android:color/darker_gray"
+            android:text="FUN"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/select_third"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:textColor="@android:color/darker_gray"
+            android:text="인기웹"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/select_fourth"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:textColor="@android:color/darker_gray"
+            android:text="연예"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/select_fifth"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:textColor="@android:color/darker_gray"
+            android:text="영화"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/select_sixth"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:textColor="@android:color/darker_gray"
+            android:text="스포츠"
+            />
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/select_change"
+            android:background="@android:color/white"
+            android:src="@drawable/repeat"
+            android:padding="15dp"
+            android:scaleType="centerInside"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/select_bar"
+        android:id="@+id/news_contents"
+        android:layout_marginStart="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/first_news"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/black"
+            android:text="靑정무수석 &quot;대입개편, 2022년 이후에 적용될 문제&quot;" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="8월 소비자 물가 사상 첫 0.0%...&quot;물가지수로는 마이너스&quot;"
+            android:id="@+id/second_news"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black"
+            android:gravity="center_vertical"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="혼자 사는 원룸 문 여니 낯선 남자..잡고 보니 같은 건물 거주"
+            android:id="@+id/third_news"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black"
+            android:gravity="center_vertical"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="&quot;용 세마리 문신, 노출만해도 처벌 가능할까?&quot;"
+            android:id="@+id/fourth_news"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black"
+            android:gravity="center_vertical"
+
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="&amp;입마개&amp; 안해도 되는 50kg 대형견..또 사람 물었다"
+            android:id="@+id/fifth_news"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black"
+            android:gravity="center_vertical"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/real_time"
+        android:orientation="horizontal"
+        android:layout_marginVertical="10dp"
+        android:layout_below="@id/news_contents"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="1dp"
+            android:layout_marginStart="10dp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/round_background"
+            android:text="실시간"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="#9999FF"
+            android:text="2"
+            android:layout_weight="1"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="태풍 경로"
+            android:textColor="@android:color/black"
+            android:layout_weight="20"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@android:color/holo_red_dark"
+            android:text="↑"
+            android:layout_marginEnd="-20dp"
+            android:layout_weight="1"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="268"
+            android:layout_weight="1"
+
+            />
+        <Button
+            android:layout_width="30dp"
+            android:background="@android:color/white"
+            android:textColor="@android:color/darker_gray"
+            android:layout_height="match_parent"
+            android:text="∨"
+             />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/news_image"
+        android:layout_below="@+id/real_time"
+        android:orientation="horizontal"
+        android:layout_marginVertical="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:src="@drawable/news1"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="&quot;파병 끝나면 한국서 결혼&quot;..돈도 마음도 앗아간 금발 여군..."
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:src="@drawable/news1"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="&quot;4억8천만원 아래로는 팔지 마세요&quot; 아파트 가격 담합 의혹"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/news_image"
+        android:layout_marginVertical="20dp"
+        android:id="@+id/weather"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="20dp"
+            >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/rainy"
+                android:scaleType="centerInside"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:text="29"
+                android:textColor="@android:color/black"
+                android:textSize="40sp"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="top"
+                android:textSize="20sp"
+                android:text="˚C"/>
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:gravity="center_vertical"
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:text="양천구 신정6동\n어제보다 1˚C 낮아요"/>
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:src="@drawable/corsshair"
+                android:scaleType="centerInside"
+                android:layout_gravity="center_vertical"
+                android:background = "@android:color/white"
+                android:padding = "10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:orientation="horizontal"
+            android:layout_marginVertical="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/sun"
+                    android:layout_marginHorizontal="10dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="미세먼지 32"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="보통"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/sun"
+                    android:layout_marginHorizontal="10dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="초미세먼지 16"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="보통"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/broadcast"
+        android:layout_marginVertical="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/weather">
+
+        <ImageButton
+            android:layout_marginStart="50dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerInside"
+            android:padding="10dp"
+            android:background="@drawable/button_circle"
+            android:src="@drawable/sbs"
+            />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <ImageButton
+
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/mbc"
+            android:padding="10dp"
+            android:background="@drawable/button_circle"
+            />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:layout_marginEnd="50dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/jtbc"
+            android:padding="10dp"
+            android:background="@drawable/button_circle"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/kakao_layout_shape"
+        android:id="@+id/open"
+        android:layout_below="@id/broadcast">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:text="펼쳐보기 ∨"/>
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/open"
+        android:background="@drawable/kakao_layout_shape">
+
+        <TableRow>
+            <Button
+                android:text="뉴스홈"
+                android:layout_weight="1"
+                android:background="@drawable/kakao_layout_shape"/>
+            <Button
+                android:text="사회"
+                android:layout_weight="1"
+                android:background="@drawable/kakao_layout_shape"/>
+
+            <Button
+                android:text="정치"
+                android:layout_weight="1"
+                android:background="@drawable/kakao_layout_shape"/>
+
+            <Button
+                android:text="경제"
+                android:layout_weight="1"
+                android:background="@drawable/kakao_layout_shape"/>
+
+        </TableRow>
+        <TableRow>
+            <Button
+                android:text="문화"
+                android:layout_weight="1"
+                android:background="@drawable/kakao_layout_shape"/>
+            <Button
+                android:text="IT"
+                android:layout_weight="1"
+                android:background="@drawable/kakao_layout_shape"/>
+
+            <Button
+                android:text="이슈"
+                android:layout_weight="1"
+                android:background="@drawable/kakao_layout_shape"/>
+
+            <Button
+                android:text="국제"
+                android:layout_weight="1"
+                android:background="@drawable/kakao_layout_shape"/>
+
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>
+
+
+</ScrollView>
