@@ -12,21 +12,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Menu1Fragment"></activity>
+        <activity android:name=".SendingActivity"></activity>
+        <activity android:name=".NoticeActivity" />
+        <activity android:name=".Menu1Fragment" />
         <activity android:name=".Menu2Fragment" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".OpenedActivity" />
-        <activity android:name=".RemittanceActivity" />
-        <activity android:name=".AllSetActivity" />
-        <activity android:name=".TimeLineActivity" />
-        <activity android:name=".LookUpActivity" />
-        <activity android:name=".Main3Activity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".OpenedActivity" />
+        <activity android:name=".RemittanceActivity" />
+        <activity android:name=".AllSetActivity" />
+        <activity android:name=".TimeLineActivity" />
+        <activity android:name=".LookUpActivity" />
+        <activity android:name=".Main3Activity" />
     </application>
 
 </manifest>

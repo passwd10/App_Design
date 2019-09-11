@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.text.TextUtils.substring
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import kotlinx.android.synthetic.main.toss_main_2.*
-import kotlin.math.pow
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         var is_first_input = true;
 
+        val btn_notice : ImageButton = findViewById(R.id.btn_notice)
         val tv_result: TextView = findViewById(R.id.tv_result_window)
         val btn1: Button = findViewById(R.id.btn1)
         val btn2: Button = findViewById(R.id.btn2)
@@ -179,8 +180,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_send.setOnClickListener {
-            val intent = Intent(this,RemittanceActivity::class.java)
-            intent.putExtra("transferMoney",tv_result.text.toString())
+            val intent = Intent(this, RemittanceActivity::class.java)
+            intent.putExtra("transferMoney", tv_result.text.toString())
+            startActivity(intent)
+        }
+
+        btn_notice.setOnClickListener {
+            val intent = Intent(this, NoticeActivity::class.java)
             startActivity(intent)
         }
 
