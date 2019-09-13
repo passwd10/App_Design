@@ -3,24 +3,39 @@ package com.example.myapplication2
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils.substring
+import android.os.PersistableBundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.toss_main_2.*
+import kotlinx.android.synthetic.main.toss_sending.*
+import kotlinx.android.synthetic.main.toss_main_2.toss_send as toss_send1
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var tv_result: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if(savedInstanceState == null) {
+
+        } else {
+            tv_result.setText(savedInstanceState.getString("saveNum"))
+        }
+
+        Log.i("TAG", "onCreate")
         setContentView(R.layout.toss_main_2)
 
         var is_first_input = true;
+        tv_result = findViewById(R.id.tv_result_window)
 
-        val btn_notice : ImageButton = findViewById(R.id.btn_notice)
-        val tv_result: TextView = findViewById(R.id.tv_result_window)
+        val btn_notice: ImageButton = findViewById(R.id.btn_notice)
+
+        val btn0: Button = findViewById(R.id.btn0)
         val btn1: Button = findViewById(R.id.btn1)
         val btn2: Button = findViewById(R.id.btn2)
         val btn3: Button = findViewById(R.id.btn3)
@@ -33,11 +48,14 @@ class MainActivity : AppCompatActivity() {
 
         toss_send.visibility = View.GONE
 
-        btn_all_clear.setOnClickListener {
-            is_first_input = true
-            tv_result.setText("0")
-            toss_send.visibility = View.GONE
-            toss_bottom_menu.visibility = View.VISIBLE
+        btn0.setOnClickListener {
+            if (is_first_input == true) {
+
+            } else {
+                tv_result.append("0")
+            }
+            toss_send.visibility = View.VISIBLE
+            toss_bottom_menu.visibility = View.GONE
         }
 
         btn1.setOnClickListener {
@@ -154,6 +172,13 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        btn_all_clear.setOnClickListener {
+            is_first_input = true
+            tv_result.setText("0")
+            toss_send.visibility = View.GONE
+            toss_bottom_menu.visibility = View.VISIBLE
+        }
+
         btn_toss_lookup.setOnClickListener {
             val intent = Intent(this, LookUpActivity::class.java)
             startActivity(intent)
@@ -185,10 +210,76 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        btn_dutch_pay.setOnClickListener {
+            val intent = Intent(this, DutchPayActivity::class.java)
+            intent.putExtra("transferMoney", tv_result.text.toString())
+            startActivity(intent)
+        }
+
         btn_notice.setOnClickListener {
             val intent = Intent(this, NoticeActivity::class.java)
             startActivity(intent)
         }
 
+
     }
+
+
+    var firstTime: Long = 0
+    var secondTime : Long = 0
+
+    override fun onBackPressed() { //뒤로가기
+
+        secondTime = System.currentTimeMillis()
+        if(secondTime - firstTime < 2000) {
+            super.onBackPressed()
+            finish()
+        }else Toast.makeText(this,"뒤로가기 버튼을 한 번 더 누르시면 종료",Toast.LENGTH_SHORT).show()
+        firstTime = System.currentTimeMillis()
+    }
+
+    override fun onSaveInstanceState(savedInstanceState: Bundle) {
+        super.onSaveInstanceState(savedInstanceState)
+        savedInstanceState.putString("saveNum", tv_result.text.toString())
+        //tv_result 값을 save_num 키에 저장함
+    }
+
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        tv_result.setText(savedInstanceState.getString("saveNum"))
+
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        Log.i("TAG", "onStart")
+    }
+
+    public override fun onResume() {
+        super.onResume()
+        Log.i("TAG", "onResume")
+    }
+
+    public override fun onPause() {
+        super.onPause()
+        Log.i("TAG", "onPause")
+    }
+
+    public override fun onRestart() {
+        super.onRestart()
+        Log.i("TAG", "onRestart")
+    }
+
+    public override fun onStop() {
+        super.onStop()
+        Log.i("TAG", "onStop")
+    }
+
+    public override fun onDestroy() {
+        super.onDestroy()
+        Log.i("TAG", "onDestroy")
+    }
+
 }
