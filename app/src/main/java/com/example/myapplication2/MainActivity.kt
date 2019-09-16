@@ -220,8 +220,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, NoticeActivity::class.java)
             startActivity(intent)
         }
-
-
     }
 
 
@@ -234,6 +232,7 @@ class MainActivity : AppCompatActivity() {
         if(secondTime - firstTime < 2000) {
             super.onBackPressed()
             finish()
+//            android.os.Process.killProcess(android.os.Process.myPid())
         }else Toast.makeText(this,"뒤로가기 버튼을 한 번 더 누르시면 종료",Toast.LENGTH_SHORT).show()
         firstTime = System.currentTimeMillis()
     }
