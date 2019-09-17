@@ -16,12 +16,21 @@ import kotlinx.android.synthetic.main.toss_main_2.toss_send as toss_send1
 
 class MainActivity : AppCompatActivity() {
 
+    val MAIN_CODE = 111         //메인(송금)
+    val LOOKUP_CODE = 222       //조회
+    val TIMELINE_CODE = 333     //타임라인
+    val OPENED_CODE = 444       //개설
+    val AllSET_CODE = 555       //전체설정
+    val SEND_CODE = 666         //보내기
+    val DUTCHPAY_CODE = 777     //더치페이
+    val NOTICE_CODE = 888       //알림
+
     lateinit var tv_result: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
 
         } else {
             tv_result.setText(savedInstanceState.getString("saveNum"))
@@ -179,61 +188,58 @@ class MainActivity : AppCompatActivity() {
             toss_bottom_menu.visibility = View.VISIBLE
         }
 
+
         btn_toss_lookup.setOnClickListener {
             val intent = Intent(this, LookUpActivity::class.java)
-            startActivity(intent)
-        }
-
-        btn_toss_allset.setOnClickListener {
-            val intent = Intent(this, AllSetActivity::class.java)
-            startActivity(intent)
-        }
-
-        btn_toss_main.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
-
-        btn_toss_opened.setOnClickListener {
-            val intent = Intent(this, OpenedActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent,LOOKUP_CODE)
         }
 
         btn_toss_timeline.setOnClickListener {
             val intent = Intent(this, TimeLineActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, TIMELINE_CODE)
         }
+
+        btn_toss_opened.setOnClickListener {
+            val intent = Intent(this, OpenedActivity::class.java)
+            startActivityForResult(intent, OPENED_CODE)
+        }
+
+        btn_toss_allset.setOnClickListener {
+            val intent = Intent(this, AllSetActivity::class.java)
+            startActivityForResult(intent, AllSET_CODE)
+        }
+
 
         btn_send.setOnClickListener {
             val intent = Intent(this, RemittanceActivity::class.java)
             intent.putExtra("transferMoney", tv_result.text.toString())
-            startActivity(intent)
+            startActivityForResult(intent, SEND_CODE)
         }
 
         btn_dutch_pay.setOnClickListener {
             val intent = Intent(this, DutchPayActivity::class.java)
             intent.putExtra("transferMoney", tv_result.text.toString())
-            startActivity(intent)
+            startActivityForResult(intent, DUTCHPAY_CODE)
         }
 
         btn_notice.setOnClickListener {
             val intent = Intent(this, NoticeActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, NOTICE_CODE)
         }
     }
 
 
     var firstTime: Long = 0
-    var secondTime : Long = 0
+    var secondTime: Long = 0
 
     override fun onBackPressed() { //뒤로가기
 
         secondTime = System.currentTimeMillis()
-        if(secondTime - firstTime < 2000) {
+        if (secondTime - firstTime < 2000) {
             super.onBackPressed()
             finish()
 //            android.os.Process.killProcess(android.os.Process.myPid())
-        }else Toast.makeText(this,"뒤로가기 버튼을 한 번 더 누르시면 종료",Toast.LENGTH_SHORT).show()
+        } else Toast.makeText(this, "뒤로가기 버튼을 한 번 더 누르시면 종료", Toast.LENGTH_SHORT).show()
         firstTime = System.currentTimeMillis()
     }
 
