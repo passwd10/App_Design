@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_menu1"
+        android:icon="@drawable/flash"
+        android:title="송금" />
+
+    <item
+        android:id="@+id/navigation_menu2"
+        android:icon="@drawable/won"
+        android:title="조회" />
+
+    <item
+        android:id="@+id/navigation_menu3"
+        android:icon="@drawable/calendar"
+        android:title="타임라인" />
+
+    <item
+        android:id="@+id/navigation_menu4"
+        android:icon="@drawable/add"
+        android:title="개설" />
+
+
+    <item
+        android:id="@+id/navigation_menu5"
+        android:icon="@drawable/menu"
+        android:title="전체" />
+
+</menu>
