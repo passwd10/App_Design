@@ -31,8 +31,6 @@ class AllSetActivity : AppCompatActivity() {
 
 
         btn_toss_main.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivityForResult(intent, MAIN_CODE)
             finish()
         }
 

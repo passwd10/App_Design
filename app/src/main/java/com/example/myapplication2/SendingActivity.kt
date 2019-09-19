@@ -21,8 +21,16 @@ class SendingActivity : AppCompatActivity() {
 
         }
 
+        var imgReceiver : Int
         var moneyReceiver : String
         var transferMoney : String
+        var bank : String
+
+        if (intent.hasExtra("imgReceiver")) { //송금받는사람 이미지 받아오기
+
+            imgReceiver = intent.getIntExtra("imgReceiver",R.drawable.toss)
+            iv_send_img.setImageResource(imgReceiver)
+        }
 
         if (intent.hasExtra("moneyReceiver")) { //송금받는사람 이름 받아오기
 
@@ -35,35 +43,13 @@ class SendingActivity : AppCompatActivity() {
             transferMoney = intent.getStringExtra("transferMoney").toString()
             tv_receive_money.setText(transferMoney)
         }
+
+        if(intent.hasExtra("bank")) { //은행
+            bank = intent.getStringExtra("bank").toString()
+            tv_receive_bank.setText(bank)
+
+        }
     }
 
-    public override fun onStart() {
-        super.onStart()
-        Log.i("TAG", "onStart")
-    }
 
-    public override fun onResume() {
-        super.onResume()
-        Log.i("TAG", "onResume")
-    }
-
-    public override fun onPause() {
-        super.onPause()
-        Log.i("TAG", "onPause")
-    }
-
-    public override fun onRestart() {
-        super.onRestart()
-        Log.i("TAG", "onRestart")
-    }
-
-    public override fun onStop() {
-        super.onStop()
-        Log.i("TAG", "onStop")
-    }
-
-    public override fun onDestroy() {
-        super.onDestroy()
-        Log.i("TAG", "onDestroy")
-    }
 }

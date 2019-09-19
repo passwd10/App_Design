@@ -4,8 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.view.KeyEvent
+import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.*
@@ -13,19 +15,27 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import kotlinx.android.synthetic.main.activity_remittance.*
+import kotlinx.android.synthetic.main.activity_time_line.*
 import org.w3c.dom.Text
 import java.lang.StringBuilder
 
 class RemittanceActivity : AppCompatActivity() {
 
     val REMITTANCE_CODE = 1010 //송금창
+    val SENDING_CODE = 1234 // 돈보낼때
     var accountListIsOpen = false //내 계좌목록이 열려있나
+
+    var itemPosition = 0 // 해당아이템 위치
 
     lateinit var transferMoney: String
     var suggestion = arrayOf("박인서", "박철수", "이태원", "김철수")
 
     private val adapterList by lazy {
         RemittanceAdapter()
+    }
+
+    private val contactAdapter by lazy {
+        ContactAdapter()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,11 +77,12 @@ class RemittanceActivity : AppCompatActivity() {
         rv_rem_list.layoutManager = LinearLayoutManager(this)
         rv_rem_list.hasFixedSize()
 
-        adapterList.addItems(RemittanceItem(R.drawable.toss, "토스머니", "010-1234-1234"))
-        adapterList.addItems(RemittanceItem(R.drawable.toss, "비상금", "토스 미션계좌"))
-        adapterList.addItems(RemittanceItem(R.drawable.kbbank, "KB국민은행 계좌", "KB국민 514121010101101"))
-
         rv_rem_list.visibility = View.GONE
+
+        //연락처 목록 recyclerview
+        rv_contact_list.adapter = contactAdapter
+        rv_contact_list.layoutManager = LinearLayoutManager(this)
+        rv_contact_list.hasFixedSize()
 
         //계좌목록 터치시 내 계좌목록 출력
         var accountLayout = findViewById<LinearLayout>(R.id.my_account_list)
@@ -86,6 +97,44 @@ class RemittanceActivity : AppCompatActivity() {
             }
 
         }
+
+        rv_rem_list.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener{
+
+            var mLastClickTime : Long = 0
+
+            override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
+            }
+
+            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                val child = rv_rem_list.findChildViewUnder(e.x, e.y)
+                itemPosition = rv_rem_list.getChildAdapterPosition(child!!)
+
+                if(SystemClock.elapsedRealtime()-mLastClickTime < 500) {
+                    touchSend()
+                }
+                mLastClickTime = SystemClock.elapsedRealtime()
+
+                return false
+            }
+
+            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
+            }
+
+        })
+
+
+    }
+
+    //터치이벤트 한번만하게 만들기
+
+    private fun touchSend() {
+        val intent = Intent(this,SendingActivity::class.java)
+        intent.putExtra("imgReceiver",adapterList.items[itemPosition].remImgSrc)
+        intent.putExtra("moneyReceiver",adapterList.items[itemPosition].remName)
+        intent.putExtra("bank",adapterList.items[itemPosition].remNum)
+        intent.putExtra("transferMoney",tv_transfermoney.text.toString())
+        startActivityForResult(intent,SENDING_CODE)
+
     }
 
     private fun doSomething() {
@@ -101,33 +150,5 @@ class RemittanceActivity : AppCompatActivity() {
     }
 
 
-    public override fun onStart() {
-        super.onStart()
-        Log.i("TAG", "onStart_Remmittance")
-    }
 
-    public override fun onResume() {
-        super.onResume()
-        Log.i("TAG", "onResume_Remmittance")
-    }
-
-    public override fun onPause() {
-        super.onPause()
-        Log.i("TAG", "onPause_Remmittance")
-    }
-
-    public override fun onRestart() {
-        super.onRestart()
-        Log.i("TAG", "onRestart_Remmittance")
-    }
-
-    public override fun onStop() {
-        super.onStop()
-        Log.i("TAG", "onStop_Remmittance")
-    }
-
-    public override fun onDestroy() {
-        super.onDestroy()
-        Log.i("TAG", "onDestroy_Remmittance")
-    }
 }

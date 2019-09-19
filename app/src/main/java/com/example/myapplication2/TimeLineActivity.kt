@@ -4,9 +4,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.*
+import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_time_line.*
+import kotlinx.android.synthetic.main.timeline_dialog_custom.*
 import kotlinx.android.synthetic.main.toss_main_2.*
 import kotlinx.android.synthetic.main.toss_main_2.btn_toss_allset
 import kotlinx.android.synthetic.main.toss_main_2.btn_toss_lookup
@@ -15,12 +22,12 @@ import kotlinx.android.synthetic.main.toss_main_2.btn_toss_opened
 
 class TimeLineActivity : AppCompatActivity() {
 
-    val MAIN_CODE = 111         //메인(송금)
     val LOOKUP_CODE = 222       //조회
-    val TIMELINE_CODE = 333     //타임라인
     val OPENED_CODE = 444       //개설
     val AllSET_CODE = 555       //전체설정
     val NOTICE_CODE = 888       //알림
+
+    var itemPosition = 0 // 해당아이템 위치
 
     private val adapter by lazy {
         TimeLineAdapter()
@@ -34,15 +41,31 @@ class TimeLineActivity : AppCompatActivity() {
         rv_timeline_list.layoutManager = LinearLayoutManager(this)
         rv_timeline_list.hasFixedSize()
 
-        adapter.addItems(TimeLineItem(R.drawable.question,"-10,000원","맥도날드","12:24"))
-        adapter.addItems(TimeLineItem(R.drawable.question,"-5,000원","롯데리아","14:10"))
-        adapter.addItems(TimeLineItem(R.drawable.question,"-10,000원","맥도날드","12:24"))
-        adapter.addItems(TimeLineItem(R.drawable.question,"-5,000원","롯데리아","14:10"))
+        rv_timeline_list.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
+
+            override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
+            }
+
+            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                val child = rv_timeline_list.findChildViewUnder(e.x, e.y)
+                itemPosition = rv_timeline_list.getChildAdapterPosition(child!!)
+
+                Log.d("TAG", "position ==>" + itemPosition)
+                Toast.makeText(application, itemPosition.toString() + "번째 item", Toast.LENGTH_SHORT)
+                    .show()
+
+
+                return false
+            }
+
+            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
+            }
+
+        })
+
 
 
         btn_toss_main.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivityForResult(intent, MAIN_CODE)
             finish()
         }
 
@@ -63,8 +86,55 @@ class TimeLineActivity : AppCompatActivity() {
             startActivityForResult(intent, AllSET_CODE)
             finish()
         }
+
+        registerForContextMenu(rv_timeline_list)
     }
 
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        //선택후에 바뀌는것
+        //item.itemId
+
+        when (item?.itemId) {
+            R.id.revise_list -> {
+
+                //처음 값 저장
+                val firstMoney: String = adapter.items[itemPosition].timeLineMoney
+                val firstContents: String = adapter.items[itemPosition].timeLineContents
+                val firstHour: String = adapter.items[itemPosition].timeLineHours
+                val firstMinute: String = adapter.items[itemPosition].timeLineMinutes
+
+                val builder = AlertDialog.Builder(this)
+                val dialogView = layoutInflater.inflate(R.layout.timeline_dialog_custom, null)
+                val dialogMoney = dialogView.findViewById<EditText>(R.id.et_dialog_money)
+                val dialogContents = dialogView.findViewById<EditText>(R.id.et_dialog_contents)
+                val dialogHours = dialogView.findViewById<EditText>(R.id.et_dialog_hours)
+                val dialogMinutes = dialogView.findViewById<EditText>(R.id.et_dialog_minutes)
+
+                dialogMoney.setText(firstMoney)
+                dialogContents.setText(firstContents)
+                dialogHours.setText(firstHour)
+                dialogMinutes.setText(firstMinute)
+
+
+                builder.setView(dialogView).setPositiveButton("확인") { dialogInterface, i ->
+
+                    adapter.items[itemPosition].timeLineMoney = dialogMoney.text.toString()
+                    adapter.items[itemPosition].timeLineContents = dialogContents.text.toString()
+                    adapter.items[itemPosition].timeLineHours = dialogHours.text.toString()
+                    adapter.items[itemPosition].timeLineMinutes = dialogMinutes.text.toString()
+                    adapter.notifyDataSetChanged()
+
+                }
+                    .setNegativeButton("취소") { dialogInterface, i -> }
+                    .show()
+            }
+            R.id.delete_list -> {
+                adapter.deleteItems(itemPosition)
+            }
+        }
+        return super.onContextItemSelected(item)
+    }
 
     public override fun onStart() {
         super.onStart()

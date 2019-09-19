@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@android:color/white">
 
     <LinearLayout
         android:id="@+id/tos_sending_top"
@@ -54,7 +55,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="님 연락처로"
+                    android:text=" 계좌에"
                     android:textColor="@android:color/black"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -82,11 +83,17 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_receive_bank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="KB국민 51420212123123\n수수료 면제 10회 남음"
+                android:text="KB국민 51420212123123"
                 android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="수수료 면제 10회 남음"
+                android:textStyle="bold"/>
         </LinearLayout>
 
         <Space
@@ -95,9 +102,11 @@
             android:layout_weight="1" />
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:scaleType="fitStart"
+            android:id="@+id/iv_send_img"
+            android:layout_marginEnd="20dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerInside"
             android:src="@drawable/kbbank" />
     </LinearLayout>
 

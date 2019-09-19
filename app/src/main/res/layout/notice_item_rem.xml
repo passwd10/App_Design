@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout13"
-        android:layout_width="377dp"
-        android:layout_height="49dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"

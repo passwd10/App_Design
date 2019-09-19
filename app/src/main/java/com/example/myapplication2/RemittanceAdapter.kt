@@ -13,7 +13,11 @@ import kotlinx.android.synthetic.main.receiver_item.view.*
 class RemittanceAdapter : RecyclerView.Adapter<RemittanceAdapter.RemViewHolder>() {
 
 
-    var items: MutableList<RemittanceItem> = mutableListOf()
+    var items: MutableList<RemittanceItem> = mutableListOf(
+        RemittanceItem(R.drawable.toss, "토스머니", "010-1234-1234"),
+        RemittanceItem(R.drawable.toss, "비상금", "토스 미션계좌"),
+        RemittanceItem(R.drawable.kbbank, "KB국민은행", "KB국민 514121010101101")
+    )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RemViewHolder {
         val view =

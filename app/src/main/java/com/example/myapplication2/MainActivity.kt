@@ -1,15 +1,18 @@
 package com.example.myapplication2
 
 import android.content.Intent
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_camera.*
 import kotlinx.android.synthetic.main.toss_main_2.*
 import kotlinx.android.synthetic.main.toss_sending.*
 import kotlinx.android.synthetic.main.toss_main_2.toss_send as toss_send1
@@ -225,6 +228,23 @@ class MainActivity : AppCompatActivity() {
         btn_notice.setOnClickListener {
             val intent = Intent(this, NoticeActivity::class.java)
             startActivityForResult(intent, NOTICE_CODE)
+        }
+
+        //카메라 버튼
+        btn_camera.setOnClickListener {
+            var intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(intent,123)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 123)
+        {
+            var bmp=data?.extras?.get("data") as Bitmap
+            iv_cam.setImageBitmap(bmp)
+        } else if(requestCode == 333) {
+
         }
     }
 

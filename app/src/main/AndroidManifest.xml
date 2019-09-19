@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".DutchPayActivity"></activity>
+        <activity android:name=".DutchPayActivity"/>
         <activity android:name=".CameraActivity" />
         <activity android:name=".SendingActivity" />
         <activity android:name=".NoticeActivity" />
@@ -22,7 +22,7 @@
         <activity android:name=".Menu2Fragment" />
         <activity android:name=".SplashActivity">
             <intent-filter>
-                <action android:name="android.intent.action.SPLASH" />
+                <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
