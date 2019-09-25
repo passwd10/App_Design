@@ -28,22 +28,19 @@ class MainActivity : AppCompatActivity() {
     val DUTCHPAY_CODE = 777     //더치페이
     val NOTICE_CODE = 888       //알림
 
-    lateinit var tv_result: TextView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (savedInstanceState == null) {
-
-        } else {
-            tv_result.setText(savedInstanceState.getString("saveNum"))
-        }
+//        if (savedInstanceState == null) {
+//
+//        } else {
+//            tv_result_window.setText(savedInstanceState.getString("saveNum"))
+//        }
 
         Log.i("TAG", "onCreate")
         setContentView(R.layout.toss_main_2)
 
         var is_first_input = true;
-        tv_result = findViewById(R.id.tv_result_window)
 
         val btn_notice: ImageButton = findViewById(R.id.btn_notice)
 
@@ -64,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             if (is_first_input == true) {
 
             } else {
-                tv_result.append("0")
+                tv_result_window.append("0")
             }
             toss_send.visibility = View.VISIBLE
             toss_bottom_menu.visibility = View.GONE
@@ -72,10 +69,10 @@ class MainActivity : AppCompatActivity() {
 
         btn1.setOnClickListener {
             if (is_first_input == true) {
-                tv_result.setText("1")
+                tv_result_window.setText("1")
                 is_first_input = false
             } else {
-                tv_result.append("1")
+                tv_result_window.append("1")
             }
             toss_send.visibility = View.VISIBLE
             toss_bottom_menu.visibility = View.GONE
@@ -83,10 +80,10 @@ class MainActivity : AppCompatActivity() {
 
         btn2.setOnClickListener {
             if (is_first_input == true) {
-                tv_result.setText("2")
+                tv_result_window.setText("2")
                 is_first_input = false
             } else {
-                tv_result.append("2")
+                tv_result_window.append("2")
             }
             toss_send.visibility = View.VISIBLE
             toss_bottom_menu.visibility = View.GONE
@@ -95,10 +92,10 @@ class MainActivity : AppCompatActivity() {
 
         btn3.setOnClickListener {
             if (is_first_input == true) {
-                tv_result.setText("3")
+                tv_result_window.setText("3")
                 is_first_input = false
             } else {
-                tv_result.append("3")
+                tv_result_window.append("3")
             }
             toss_send.visibility = View.VISIBLE
             toss_bottom_menu.visibility = View.GONE
@@ -106,10 +103,10 @@ class MainActivity : AppCompatActivity() {
 
         btn4.setOnClickListener {
             if (is_first_input == true) {
-                tv_result.setText("4")
+                tv_result_window.setText("4")
                 is_first_input = false
             } else {
-                tv_result.append("4")
+                tv_result_window.append("4")
             }
             toss_send.visibility = View.VISIBLE
             toss_bottom_menu.visibility = View.GONE
@@ -117,10 +114,10 @@ class MainActivity : AppCompatActivity() {
 
         btn5.setOnClickListener {
             if (is_first_input == true) {
-                tv_result.setText("5")
+                tv_result_window.setText("5")
                 is_first_input = false
             } else {
-                tv_result.append("5")
+                tv_result_window.append("5")
             }
             toss_send.visibility = View.VISIBLE
             toss_bottom_menu.visibility = View.GONE
@@ -128,10 +125,10 @@ class MainActivity : AppCompatActivity() {
 
         btn6.setOnClickListener {
             if (is_first_input == true) {
-                tv_result.setText("6")
+                tv_result_window.setText("6")
                 is_first_input = false
             } else {
-                tv_result.append("6")
+                tv_result_window.append("6")
             }
             toss_send.visibility = View.VISIBLE
             toss_bottom_menu.visibility = View.GONE
@@ -139,10 +136,10 @@ class MainActivity : AppCompatActivity() {
 
         btn7.setOnClickListener {
             if (is_first_input == true) {
-                tv_result.setText("7")
+                tv_result_window.setText("7")
                 is_first_input = false
             } else {
-                tv_result.append("7")
+                tv_result_window.append("7")
             }
             toss_send.visibility = View.VISIBLE
             toss_bottom_menu.visibility = View.GONE
@@ -150,10 +147,10 @@ class MainActivity : AppCompatActivity() {
 
         btn8.setOnClickListener {
             if (is_first_input == true) {
-                tv_result.setText("8")
+                tv_result_window.setText("8")
                 is_first_input = false
             } else {
-                tv_result.append("8")
+                tv_result_window.append("8")
             }
             toss_send.visibility = View.VISIBLE
             toss_bottom_menu.visibility = View.GONE
@@ -161,32 +158,32 @@ class MainActivity : AppCompatActivity() {
 
         btn9.setOnClickListener {
             if (is_first_input == true) {
-                tv_result.setText("9")
+                tv_result_window.setText("9")
                 is_first_input = false
             } else {
-                tv_result.append("9")
+                tv_result_window.append("9")
             }
             toss_send.visibility = View.VISIBLE
             toss_bottom_menu.visibility = View.GONE
         }
 
         btn_one_clear.setOnClickListener {
-            if (tv_result.length() == 1 && tv_result.text != "0") {
-                tv_result.setText("0")
+            if (tv_result_window.length() == 1 && tv_result_window.text != "0") {
+                tv_result_window.setText("0")
                 is_first_input = true
                 toss_send.visibility = View.GONE
                 toss_bottom_menu.visibility = View.VISIBLE
             }
 
-            if (tv_result.length() != 1) {
-                tv_result.setText(tv_result.text.substring(0, tv_result.text.length - 1))
+            if (tv_result_window.length() != 1) {
+                tv_result_window.setText(tv_result_window.text.substring(0, tv_result_window.text.length - 1))
             }
 
         }
 
         btn_all_clear.setOnClickListener {
             is_first_input = true
-            tv_result.setText("0")
+            tv_result_window.setText("0")
             toss_send.visibility = View.GONE
             toss_bottom_menu.visibility = View.VISIBLE
         }
@@ -198,7 +195,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_toss_timeline.setOnClickListener {
-            val intent = Intent(this, TimeLineActivity::class.java)
+            val intent = Intent(this, TimeLineActivity2::class.java)
             startActivityForResult(intent, TIMELINE_CODE)
         }
 
@@ -215,13 +212,13 @@ class MainActivity : AppCompatActivity() {
 
         btn_send.setOnClickListener {
             val intent = Intent(this, RemittanceActivity::class.java)
-            intent.putExtra("transferMoney", tv_result.text.toString())
+            intent.putExtra("transferMoney", tv_result_window.text.toString())
             startActivityForResult(intent, SEND_CODE)
         }
 
         btn_dutch_pay.setOnClickListener {
             val intent = Intent(this, DutchPayActivity::class.java)
-            intent.putExtra("transferMoney", tv_result.text.toString())
+            intent.putExtra("transferMoney", tv_result_window.text.toString())
             startActivityForResult(intent, DUTCHPAY_CODE)
         }
 
@@ -263,19 +260,19 @@ class MainActivity : AppCompatActivity() {
         firstTime = System.currentTimeMillis()
     }
 
-    override fun onSaveInstanceState(savedInstanceState: Bundle) {
-        super.onSaveInstanceState(savedInstanceState)
-        savedInstanceState.putString("saveNum", tv_result.text.toString())
-        //tv_result 값을 save_num 키에 저장함
-    }
-
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-
-        tv_result.setText(savedInstanceState.getString("saveNum"))
-
-    }
+//    override fun onSaveInstanceState(savedInstanceState: Bundle) {
+//        super.onSaveInstanceState(savedInstanceState)
+//        savedInstanceState.putString("saveNum", tv_result_window.text.toString())
+//        //tv_result_window 값을 save_num 키에 저장함
+//    }
+//
+//
+//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+//        super.onRestoreInstanceState(savedInstanceState)
+//
+//        tv_result_window.setText(savedInstanceState.getString("saveNum"))
+//
+//    }
 
     public override fun onStart() {
         super.onStart()

@@ -281,6 +281,11 @@
                 android:text="연락처"
                 android:textSize="20sp" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="연락처 추가"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_contact_list"
                 android:layout_width="match_parent"

@@ -1,395 +1,288 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/imageButton7"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/transparent"
-        android:padding="5dp"
-        android:scaleType="centerInside"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.883"
-        app:layout_constraintStart_toEndOf="@+id/imageButton6"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bell" />
-
-    <ImageButton
-        android:id="@+id/imageButton6"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/transparent"
-        android:padding="5dp"
-        android:scaleType="centerInside"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.828"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/horizontal_menu" />
-
-    <ImageButton
-        android:id="@+id/button21"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="619dp"
-        android:background="@android:color/transparent"
-        android:src="@android:drawable/arrow_down_float"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="72dp"
-        android:gravity="center"
-        android:text="9월"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="10dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        android:background="@android:color/white">
+
+        <ImageButton
+            android:id="@+id/imageButton7"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.883"
+            app:layout_constraintStart_toEndOf="@+id/imageButton6"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/bell" />
+
+        <ImageButton
+            android:id="@+id/imageButton6"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.828"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/horizontal_menu" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="72dp"
+            android:gravity="center"
+            android:text="9월"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/expenditure_contents"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:orientation="vertical">
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="지출 -10,000원"
-                android:textColor="@android:color/black"
-                android:textSize="15sp" />
+                android:layout_marginStart="10dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="지출 -10,000원"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="수입 0원 "
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="수입 0원 "
-                android:textColor="@android:color/black"
-                android:textSize="15sp" />
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_width="62dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text=">"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+
+        <CalendarView
+            android:id="@+id/calender_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/expenditure_contents" />
 
         <Button
-            android:layout_width="62dp"
+            android:id="@+id/btn_add_timeline"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="내역추가"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/calender_view" />
+
+        <TextView
+            android:id="@+id/tv_timeline_date"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text=">"
-            android:textSize="20sp" />
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="9월 25일"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_add_timeline" />
 
-    </LinearLayout>
 
-    <TableLayout
-        android:id="@+id/tableLayout"
-        android:layout_width="0dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_timeline_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_timeline_date"
+            tools:itemCount="3"
+            tools:listitem="@layout/timeline_item" />
 
-        <TableRow>
 
-            <TextView
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="일" />
-
-            <TextView
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="월" />
-
-            <TextView
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="화" />
-
-            <TextView
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="수" />
-
-            <TextView
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="목" />
-
-            <TextView
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="금" />
-
-            <TextView
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="토" />
-        </TableRow>
-
-        <TableRow>
+        <LinearLayout
+            android:id="@+id/toss_bottom_menu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/rv_timeline_list"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:background="@android:color/transparent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="2" />
+                <ImageButton
+                    android:id="@+id/btn_toss_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@android:color/white"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/flash" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="-5,000"
-                    android:textSize="10sp" />
-
+                    android:text="송금"
+                    android:textSize="11sp" />
             </LinearLayout>
-
-            <TextView
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="3" />
 
             <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="4" />
+                <ImageButton
+                    android:id="@+id/btn_toss_lookup"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@android:color/white"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/won" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="-5,000"
-                    android:textSize="10sp" />
-
+                    android:text="조회"
+                    android:textSize="11sp" />
             </LinearLayout>
 
-
-            <TextView
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="5" />
+                android:background="@android:color/white"
+                android:orientation="vertical">
 
-            <TextView
+                <ImageButton
+                    android:id="@+id/btn_toss_timeline"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@android:color/white"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/calendar" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="타임라인"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="6" />
+                android:background="@android:color/white"
+                android:orientation="vertical">
 
-            <TextView
+                <ImageButton
+                    android:id="@+id/btn_toss_opened"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@android:color/white"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/add" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="개설"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="7" />
-
-            <TextView
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="8" />
-        </TableRow>
-    </TableLayout>
-
-    <TextView
-        android:id="@+id/tv_timeline_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:text="4일 수요일"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_timeline_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_timeline_date"
-        tools:itemCount="3"
-        tools:listitem="@layout/timeline_item"/>
-
-
-    <LinearLayout
-        android:id="@+id/toss_bottom_menu"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:background="@android:color/transparent"
-            android:layout_width="0dp">
-
-            <ImageButton
-                android:id="@+id/btn_toss_main"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:padding="5dp"
-                android:scaleType="centerInside"
                 android:background="@android:color/white"
-                android:src="@drawable/flash"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textSize="11sp"
-                android:text="송금"/>
+                <ImageButton
+                    android:id="@+id/btn_toss_allset"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@android:color/white"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/menu" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="전체"
+                    android:textSize="11sp" />
+            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:background="@android:color/white"
-            android:layout_width="0dp">
-
-            <ImageButton
-                android:id="@+id/btn_toss_lookup"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:padding="5dp"
-                android:scaleType="centerInside"
-                android:background="@android:color/white"
-                android:src="@drawable/won"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textSize="11sp"
-                android:text="조회"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:background="@android:color/white"
-            android:layout_width="0dp">
-
-            <ImageButton
-                android:id="@+id/btn_toss_timeline"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:padding="5dp"
-                android:scaleType="centerInside"
-                android:background="@android:color/white"
-                android:src="@drawable/calendar"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textSize="11sp"
-                android:text="타임라인"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:background="@android:color/white"
-            android:layout_width="0dp">
-
-            <ImageButton
-                android:id="@+id/btn_toss_opened"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:padding="5dp"
-                android:scaleType="centerInside"
-                android:background="@android:color/white"
-                android:src="@drawable/add"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textSize="11sp"
-                android:text="개설"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:background="@android:color/white"
-            android:layout_width="0dp">
-
-            <ImageButton
-                android:id="@+id/btn_toss_allset"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:padding="5dp"
-                android:scaleType="centerInside"
-                android:background="@android:color/white"
-                android:src="@drawable/menu"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textSize="11sp"
-                android:text="전체"/>
-        </LinearLayout>
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

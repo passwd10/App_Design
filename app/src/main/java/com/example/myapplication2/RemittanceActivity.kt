@@ -26,6 +26,7 @@ class RemittanceActivity : AppCompatActivity() {
     var accountListIsOpen = false //내 계좌목록이 열려있나
 
     var itemPosition = 0 // 해당아이템 위치
+    var contactItemPosition = 0; //연락처 아이템 위치
 
     lateinit var transferMoney: String
     var suggestion = arrayOf("박인서", "박철수", "이태원", "김철수")
@@ -84,6 +85,7 @@ class RemittanceActivity : AppCompatActivity() {
         rv_contact_list.layoutManager = LinearLayoutManager(this)
         rv_contact_list.hasFixedSize()
 
+
         //계좌목록 터치시 내 계좌목록 출력
         var accountLayout = findViewById<LinearLayout>(R.id.my_account_list)
 
@@ -98,9 +100,9 @@ class RemittanceActivity : AppCompatActivity() {
 
         }
 
-        rv_rem_list.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener{
+        rv_rem_list.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
 
-            var mLastClickTime : Long = 0
+            var mLastClickTime: Long = 0
 
             override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
             }
@@ -109,7 +111,7 @@ class RemittanceActivity : AppCompatActivity() {
                 val child = rv_rem_list.findChildViewUnder(e.x, e.y)
                 itemPosition = rv_rem_list.getChildAdapterPosition(child!!)
 
-                if(SystemClock.elapsedRealtime()-mLastClickTime < 500) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 500) {
                     touchSend()
                 }
                 mLastClickTime = SystemClock.elapsedRealtime()
@@ -122,18 +124,48 @@ class RemittanceActivity : AppCompatActivity() {
 
         })
 
+        rv_contact_list.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
+
+            var mLastClickTime: Long = 0
+
+            override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
+            }
+
+            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                val child = rv_contact_list.findChildViewUnder(e.x, e.y)
+                contactItemPosition = rv_contact_list.getChildAdapterPosition(child!!)
+
+                //checkUp()
+
+                return false
+            }
+
+            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
+            }
+
+        })
+
 
     }
 
-    //터치이벤트 한번만하게 만들기
+    private fun checkUp() { //체크박스에 체크한 아이템을 맨 위로 올리기
 
-    private fun touchSend() {
-        val intent = Intent(this,SendingActivity::class.java)
-        intent.putExtra("imgReceiver",adapterList.items[itemPosition].remImgSrc)
-        intent.putExtra("moneyReceiver",adapterList.items[itemPosition].remName)
-        intent.putExtra("bank",adapterList.items[itemPosition].remNum)
-        intent.putExtra("transferMoney",tv_transfermoney.text.toString())
-        startActivityForResult(intent,SENDING_CODE)
+        if (contactAdapter.contactItems[contactItemPosition].contactFavorite == true) {
+
+            contactAdapter.notifyItemInserted(0)
+            contactAdapter.notifyDataSetChanged()
+
+        }
+
+    }
+
+    private fun touchSend() { //터치한 아이템에게 송금하기
+        val intent = Intent(this, SendingActivity::class.java)
+        intent.putExtra("imgReceiver", adapterList.items[itemPosition].remImgSrc)
+        intent.putExtra("moneyReceiver", adapterList.items[itemPosition].remName)
+        intent.putExtra("bank", adapterList.items[itemPosition].remNum)
+        intent.putExtra("transferMoney", tv_transfermoney.text.toString())
+        startActivityForResult(intent, SENDING_CODE)
 
     }
 
@@ -148,7 +180,6 @@ class RemittanceActivity : AppCompatActivity() {
             }
         }
     }
-
 
 
 }

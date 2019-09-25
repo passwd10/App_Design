@@ -15,24 +15,53 @@ class NoticeActivity : AppCompatActivity() {
     private val adapter by lazy {
         NoticeListAdapter()
     }
+    private val pref by lazy {
+        this.getPreferences(0)
+    }
+    private val editor by lazy {
+        pref.edit()
+    }
+
+    var noticeSize = 0 //알림창 RecyclerView 개수
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notice)
-        Log.i("TAG", "onCreate_notice")
 
         btn_back_to_main.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
-            setResult(Activity.RESULT_OK,intent)
+            setResult(Activity.RESULT_OK, intent)
             finish()
         }
 
+        noticeSize = pref.getInt("noticeSize", 0)
+
+        //데이터 저장하기
         rerere.setOnClickListener {
-            adapter.additem(NoticeItem(R.drawable.flash,"제목","본문","윙"))
-            adapter.additem(NoticeItem(R.drawable.question,"북북","본본","위위"))
+            adapter.additem(NoticeItem(R.drawable.flash, "행운퀴즈", "새로운 깜짝퀴즈가 열렸습니다.", "광고"))
+
+            editor.putString("noticeTitle${noticeSize}", adapter.items[noticeSize].noticeTitle).apply()
+            editor.putString("noticeContents${noticeSize}", adapter.items[noticeSize].noticeContents).apply()
+            editor.putString("noticeDate${noticeSize}", adapter.items[noticeSize].noticeDate).apply()
+
+            noticeSize++
+
+            editor.putInt("noticeSize", noticeSize).apply() //알림창 크기
+
+
         }
 
-        addNotices()
+
+        //데이터 불러오기
+        for (i in 0..noticeSize - 1) {
+            adapter.additem(
+                NoticeItem(R.drawable.flash,
+                    pref.getString("noticeTitle${i}", "없음").toString(),
+                    pref.getString("noticeContents${i}", "없음").toString(),
+                    pref.getString("noticeDate${i}", "없음").toString()
+                )
+            )
+        }
 
         rv_notice_list.layoutManager =
             LinearLayoutManager(this) as RecyclerView.LayoutManager? //LayoutManager 선언
@@ -42,40 +71,30 @@ class NoticeActivity : AppCompatActivity() {
     }
 
     fun addNotices() {
-        adapter.additem(NoticeItem(R.drawable.flash, "3200원 입금", "박인서님이 3,200원을 송금했습니다.","2019/08/24"))
-        adapter.additem(NoticeItem(R.drawable.question, "행운퀴즈", "새로운 깜짝퀴즈가 열렸습니다.","광고"))
-        adapter.additem(NoticeItem(R.drawable.flash, "200원 입금", "박윤서님이 200원을 송금했습니다.","2019/08/24"))
-        adapter.additem(NoticeItem(R.drawable.flash, "10,00원 입금", "김진서님이 10,000원을 송금했습니다.","2019/08/24"))
-        adapter.additem(NoticeItem(R.drawable.question, "행운퀴즈", "새로운 깜짝퀴즈가 열렸습니다.","광고"))
+        adapter.additem(
+            NoticeItem(
+                R.drawable.flash,
+                "3200원 입금",
+                "박인서님이 3,200원을 송금했습니다.",
+                "2019/08/24"
+            )
+        )
+        adapter.additem(
+            NoticeItem(
+                R.drawable.flash,
+                "200원 입금",
+                "박윤서님이 200원을 송금했습니다.",
+                "2019/08/24"
+            )
+        )
+        adapter.additem(
+            NoticeItem(
+                R.drawable.flash,
+                "10,00원 입금",
+                "김진서님이 10,000원을 송금했습니다.",
+                "2019/08/24"
+            )
+        )
     }
 
-    public override fun onStart() {
-        super.onStart()
-        Log.i("TAG", "onStart_notice")
-    }
-
-    public override fun onResume() {
-        super.onResume()
-        Log.i("TAG", "onResume_notice")
-    }
-
-    public override fun onPause() {
-        super.onPause()
-        Log.i("TAG", "onPause_notice")
-    }
-
-    public override fun onRestart() {
-        super.onRestart()
-        Log.i("TAG", "onRestart_notice")
-    }
-
-    public override fun onStop() {
-        super.onStop()
-        Log.i("TAG", "onStop_notice")
-    }
-
-    public override fun onDestroy() {
-        super.onDestroy()
-        Log.i("TAG", "onDestroy_notice")
-    }
 }

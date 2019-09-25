@@ -21,10 +21,10 @@ import java.lang.IllegalArgumentException
 class TimeLineAdapter : RecyclerView.Adapter<TimeLineAdapter.TimelineViewHolder>() {
 
     var items: MutableList<TimeLineItem> = mutableListOf(
-        TimeLineItem(R.drawable.question, "10000", "맥도날드", "12", "24"),
-        TimeLineItem(R.drawable.question, "5000", "롯데리아", "14", "10"),
-        TimeLineItem(R.drawable.question, "10000", "맥도날드", "12", "24"),
-        TimeLineItem(R.drawable.question, "5000", "롯데리아", "14", "10")
+//        TimeLineItem(R.drawable.question, "10000", "맥도날드", "12", "24"),
+//        TimeLineItem(R.drawable.question, "5000", "롯데리아", "14", "10"),
+//        TimeLineItem(R.drawable.question, "10000", "맥도날드", "12", "24"),
+//        TimeLineItem(R.drawable.question, "5000", "롯데리아", "14", "10")
     )
 
 
