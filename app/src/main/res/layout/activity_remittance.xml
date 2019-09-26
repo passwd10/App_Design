@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="@android:color/white">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,9 +15,9 @@
             android:id="@+id/remittance_top"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginVertical="10dp"
             android:layout_marginStart="5dp"
-            android:layout_gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,37 +53,36 @@
             android:id="@+id/search_person"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/act_search"
-            app:layout_constraintTop_toBottomOf="@id/remittance_top"
-            android:src="@android:drawable/ic_search_category_default"
-            app:layout_constraintWidth_percent="0.1"
             android:padding="5dp"
-            />
+            android:src="@android:drawable/ic_search_category_default"
+            app:layout_constraintEnd_toStartOf="@id/act_search"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/remittance_top"
+            app:layout_constraintWidth_percent="0.1" />
 
         <AutoCompleteTextView
             android:id="@+id/act_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="15dp"
             android:layout_marginEnd="20dp"
-            android:maxLines="1"
+            android:hint="받는 분 계좌번호 또는 연락처 입력"
             android:imeOptions="actionDone"
             android:inputType="text"
-            app:layout_constraintStart_toEndOf="@id/search_person"
+            android:maxLines="1"
+            android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/remittance_top"
-            android:hint="받는 분 계좌번호 또는 연락처 입력" />
+            app:layout_constraintStart_toEndOf="@id/search_person"
+            app:layout_constraintTop_toBottomOf="@id/remittance_top" />
 
         <LinearLayout
             android:id="@+id/remittance_transfer_me"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_person"
             android:layout_marginHorizontal="20dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_person">
 
             <TextView
                 android:layout_width="match_parent"
@@ -125,7 +124,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text= "3개의 계좌"
+                        android:text="3개의 계좌"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -133,7 +132,7 @@
                 <Space
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="25dp"
@@ -148,20 +147,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:itemCount="3"
-                tools:listitem="@layout/receiver_item"
-                />
+                tools:listitem="@layout/receiver_item" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/toss_transfer_recent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/remittance_transfer_me"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/remittance_transfer_me">
 
             <TextView
                 android:layout_width="match_parent"
@@ -212,7 +210,7 @@
                 <CheckBox
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:gravity="center"/>
+                    android:gravity="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -257,7 +255,7 @@
                 <CheckBox
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:gravity="center"/>
+                    android:gravity="center" />
             </LinearLayout>
 
 
@@ -265,35 +263,44 @@
 
         <LinearLayout
             android:id="@+id/toss_phonenum"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toss_transfer_recent"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toss_transfer_recent">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="연락처"
                 android:textSize="20sp" />
 
-            <Button
+            <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="연락처 추가"/>
+                android:layout_weight="1"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_contact_list"
-                android:layout_width="match_parent"
+            <Button
+                android:layout_marginEnd="20dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/contact_item"
-                tools:itemCount="3"
-                />
+                android:text="연락처 추가" />
 
         </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_contact_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toss_phonenum"
+            tools:itemCount="3"
+            tools:listitem="@layout/contact_item" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

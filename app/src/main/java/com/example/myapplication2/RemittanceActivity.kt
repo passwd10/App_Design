@@ -87,9 +87,7 @@ class RemittanceActivity : AppCompatActivity() {
 
 
         //계좌목록 터치시 내 계좌목록 출력
-        var accountLayout = findViewById<LinearLayout>(R.id.my_account_list)
-
-        accountLayout.setOnClickListener {
+        my_account_list.setOnClickListener {
             if (accountListIsOpen == false) { //열림
                 accountListIsOpen = true
                 rv_rem_list.visibility = View.VISIBLE
@@ -102,20 +100,16 @@ class RemittanceActivity : AppCompatActivity() {
 
         rv_rem_list.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
 
-            var mLastClickTime: Long = 0
-
             override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
             }
 
             override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                val child = rv_rem_list.findChildViewUnder(e.x, e.y)
-                itemPosition = rv_rem_list.getChildAdapterPosition(child!!)
+                if (e.action == MotionEvent.ACTION_DOWN) { //손가락을 땔때 이벤트 발생
+                    val child = rv_rem_list.findChildViewUnder(e.x, e.y)
+                    itemPosition = rv_rem_list.getChildAdapterPosition(child!!)
 
-                if (SystemClock.elapsedRealtime() - mLastClickTime < 500) {
                     touchSend()
                 }
-                mLastClickTime = SystemClock.elapsedRealtime()
-
                 return false
             }
 
@@ -126,17 +120,16 @@ class RemittanceActivity : AppCompatActivity() {
 
         rv_contact_list.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
 
-            var mLastClickTime: Long = 0
-
             override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
             }
 
             override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                val child = rv_contact_list.findChildViewUnder(e.x, e.y)
-                contactItemPosition = rv_contact_list.getChildAdapterPosition(child!!)
+                if (e.action == MotionEvent.ACTION_DOWN) { //손가락을 땔때 이벤트 발생
+                    val child = rv_contact_list.findChildViewUnder(e.x, e.y)
+                    contactItemPosition = rv_contact_list.getChildAdapterPosition(child!!)
 
-                //checkUp()
-
+                    //checkUp()
+                }
                 return false
             }
 

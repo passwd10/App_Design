@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.activity_camera.*
 import kotlinx.android.synthetic.main.toss_main_2.*
 import kotlinx.android.synthetic.main.toss_sending.*
@@ -31,29 +32,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        if (savedInstanceState == null) {
-//
-//        } else {
-//            tv_result_window.setText(savedInstanceState.getString("saveNum"))
-//        }
-
         Log.i("TAG", "onCreate")
         setContentView(R.layout.toss_main_2)
 
         var is_first_input = true;
 
         val btn_notice: ImageButton = findViewById(R.id.btn_notice)
-
-        val btn0: Button = findViewById(R.id.btn0)
-        val btn1: Button = findViewById(R.id.btn1)
-        val btn2: Button = findViewById(R.id.btn2)
-        val btn3: Button = findViewById(R.id.btn3)
-        val btn4: Button = findViewById(R.id.btn4)
-        val btn5: Button = findViewById(R.id.btn5)
-        val btn6: Button = findViewById(R.id.btn6)
-        val btn7: Button = findViewById(R.id.btn7)
-        val btn8: Button = findViewById(R.id.btn8)
-        val btn9: Button = findViewById(R.id.btn9)
 
         toss_send.visibility = View.GONE
 
@@ -229,8 +213,9 @@ class MainActivity : AppCompatActivity() {
 
         //카메라 버튼
         btn_camera.setOnClickListener {
-            var intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startActivityForResult(intent,123)
+            //var intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            IntentIntegrator(this).initiateScan()
+            //startActivityForResult(intent,123)
         }
     }
 
@@ -260,19 +245,6 @@ class MainActivity : AppCompatActivity() {
         firstTime = System.currentTimeMillis()
     }
 
-//    override fun onSaveInstanceState(savedInstanceState: Bundle) {
-//        super.onSaveInstanceState(savedInstanceState)
-//        savedInstanceState.putString("saveNum", tv_result_window.text.toString())
-//        //tv_result_window 값을 save_num 키에 저장함
-//    }
-//
-//
-//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-//        super.onRestoreInstanceState(savedInstanceState)
-//
-//        tv_result_window.setText(savedInstanceState.getString("saveNum"))
-//
-//    }
 
     public override fun onStart() {
         super.onStart()

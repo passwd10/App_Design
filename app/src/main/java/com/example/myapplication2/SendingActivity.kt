@@ -10,6 +10,8 @@ import kotlinx.android.synthetic.main.toss_sending.*
 
 class SendingActivity : AppCompatActivity() {
 
+    val SENDING_COMPLETE = 9999 // 돈보내기완료
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.toss_sending)
@@ -21,10 +23,10 @@ class SendingActivity : AppCompatActivity() {
 
         }
 
-        var imgReceiver : Int
-        var moneyReceiver : String
-        var transferMoney : String
-        var bank : String
+        var imgReceiver : Int = 0
+        var moneyReceiver : String = ""
+        var transferMoney : String = ""
+        var bank : String = ""
 
         if (intent.hasExtra("imgReceiver")) { //송금받는사람 이미지 받아오기
 
@@ -48,6 +50,15 @@ class SendingActivity : AppCompatActivity() {
             bank = intent.getStringExtra("bank").toString()
             tv_receive_bank.setText(bank)
 
+        }
+
+        btn_send_complete.setOnClickListener {
+            val intent = Intent(this, SendCompleteActivity::class.java)
+            intent.putExtra("imgReceiver", imgReceiver)
+            intent.putExtra("moneyReceiver", moneyReceiver)
+            intent.putExtra("bank", bank)
+            intent.putExtra("transferMoney", transferMoney)
+            startActivityForResult(intent, SENDING_COMPLETE)
         }
     }
 

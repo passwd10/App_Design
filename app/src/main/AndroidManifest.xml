@@ -36,6 +36,7 @@
         <activity android:name=".TimeLineActivity2"/>
         <activity android:name=".LookUpActivity" />
         <activity android:name=".Main3Activity" />
+        <activity android:name=".SendCompleteActivity"/>
     </application>
 
 </manifest>
