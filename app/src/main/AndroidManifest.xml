@@ -14,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:hardwareAccelerated="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".DutchPayActivity"/>
         <activity android:name=".CameraActivity" />
@@ -28,7 +29,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity android:name=".OpenedActivity" />
         <activity android:name=".RemittanceActivity" />
         <activity android:name=".AllSetActivity" />

@@ -17,8 +17,8 @@ class SendingActivity : AppCompatActivity() {
         setContentView(R.layout.toss_sending)
 
         btn_back_to_rem.setOnClickListener{ //뒤로가기
-            val intent = Intent(this,RemittanceActivity::class.java)
-            setResult(Activity.RESULT_OK,intent)
+//            val intent = Intent(this,RemittanceActivity::class.java)
+//            setResult(Activity.RESULT_OK,intent)
             finish()
 
         }

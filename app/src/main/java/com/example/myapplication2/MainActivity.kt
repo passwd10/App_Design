@@ -1,5 +1,6 @@
 package com.example.myapplication2
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,12 @@ import kotlinx.android.synthetic.main.activity_camera.*
 import kotlinx.android.synthetic.main.toss_main_2.*
 import kotlinx.android.synthetic.main.toss_sending.*
 import kotlinx.android.synthetic.main.toss_main_2.toss_send as toss_send1
+import com.google.zxing.integration.android.IntentResult
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.os.Handler
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +36,12 @@ class MainActivity : AppCompatActivity() {
     val DUTCHPAY_CODE = 777     //더치페이
     val NOTICE_CODE = 888       //알림
 
+    val SENDING_CODE = 1234 // 돈보낼때
+
+
+    lateinit var receiveBank: String   //받을 은행
+    lateinit var receiveAccount: String //받을 계좌
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -40,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         val btn_notice: ImageButton = findViewById(R.id.btn_notice)
 
         toss_send.visibility = View.GONE
+        btn_delete_account.visibility = View.INVISIBLE //계좌 삭제 버튼
 
         btn0.setOnClickListener {
             if (is_first_input == true) {
@@ -160,7 +174,12 @@ class MainActivity : AppCompatActivity() {
             }
 
             if (tv_result_window.length() != 1) {
-                tv_result_window.setText(tv_result_window.text.substring(0, tv_result_window.text.length - 1))
+                tv_result_window.setText(
+                    tv_result_window.text.substring(
+                        0,
+                        tv_result_window.text.length - 1
+                    )
+                )
             }
 
         }
@@ -175,7 +194,7 @@ class MainActivity : AppCompatActivity() {
 
         btn_toss_lookup.setOnClickListener {
             val intent = Intent(this, LookUpActivity::class.java)
-            startActivityForResult(intent,LOOKUP_CODE)
+            startActivityForResult(intent, LOOKUP_CODE)
         }
 
         btn_toss_timeline.setOnClickListener {
@@ -195,9 +214,19 @@ class MainActivity : AppCompatActivity() {
 
 
         btn_send.setOnClickListener {
-            val intent = Intent(this, RemittanceActivity::class.java)
-            intent.putExtra("transferMoney", tv_result_window.text.toString())
-            startActivityForResult(intent, SEND_CODE)
+            val accountText: String? = tv_main_bank.text.toString()
+            if (accountText == "") {
+                val intent = Intent(this, RemittanceActivity::class.java)
+                intent.putExtra("transferMoney", tv_result_window.text.toString())
+                startActivityForResult(intent, SEND_CODE)
+            } else {
+                val intent = Intent(this, SendingActivity::class.java)
+                intent.putExtra("transferMoney", tv_result_window.text.toString()) //송금금액
+                intent.putExtra("moneyReceiver", receiveBank) //받는 은행
+                intent.putExtra("bank", receiveAccount) //받는 계좌
+                startActivityForResult(intent, SENDING_CODE)
+
+            }
         }
 
         btn_dutch_pay.setOnClickListener {
@@ -213,23 +242,34 @@ class MainActivity : AppCompatActivity() {
 
         //카메라 버튼
         btn_camera.setOnClickListener {
-            //var intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             IntentIntegrator(this).initiateScan()
-            //startActivityForResult(intent,123)
+        }
+
+        btn_delete_account.setOnClickListener {
+            tv_main_bank.setText("") //계좌삭제
+            btn_delete_account.visibility = View.INVISIBLE //버튼 숨김
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == 123)
-        {
-            var bmp=data?.extras?.get("data") as Bitmap
-            iv_cam.setImageBitmap(bmp)
-        } else if(requestCode == 333) {
+        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        if (result != null) {
+            if (result.contents == null) {
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show()
+            } else {
+                val mHandler = Handler()
+                mHandler.postDelayed({
 
+                    btn_delete_account.visibility = View.VISIBLE //삭제버튼 출력
+                    receiveBank = result.contents.substring(0, 6) //받을 은행
+                    receiveAccount = result.contents //계좌 전체
+                    tv_main_bank.setText(receiveAccount)
+                }, 3000)
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
         }
     }
-
 
     var firstTime: Long = 0
     var secondTime: Long = 0
