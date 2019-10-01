@@ -1,11 +1,17 @@
 package com.example.myapplication2
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
+import android.view.View
+import androidx.core.os.postDelayed
 import kotlinx.android.synthetic.main.activity_remittance.*
+import kotlinx.android.synthetic.main.progress_bar.*
+import kotlinx.android.synthetic.main.progress_bar.view.*
 import kotlinx.android.synthetic.main.toss_sending.*
 
 class SendingActivity : AppCompatActivity() {
@@ -16,21 +22,19 @@ class SendingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.toss_sending)
 
-        btn_back_to_rem.setOnClickListener{ //뒤로가기
-//            val intent = Intent(this,RemittanceActivity::class.java)
-//            setResult(Activity.RESULT_OK,intent)
+        btn_back_to_rem.setOnClickListener {
+            //뒤로가기
             finish()
-
         }
 
-        var imgReceiver : Int = 0
-        var moneyReceiver : String = ""
-        var transferMoney : String = ""
-        var bank : String = ""
+        var imgReceiver: Int = 0
+        var moneyReceiver: String = ""
+        var transferMoney: String = ""
+        var bank: String = ""
 
         if (intent.hasExtra("imgReceiver")) { //송금받는사람 이미지 받아오기
 
-            imgReceiver = intent.getIntExtra("imgReceiver",R.drawable.toss)
+            imgReceiver = intent.getIntExtra("imgReceiver", R.drawable.toss)
             iv_send_img.setImageResource(imgReceiver)
         }
 
@@ -46,19 +50,34 @@ class SendingActivity : AppCompatActivity() {
             tv_receive_money.setText(transferMoney)
         }
 
-        if(intent.hasExtra("bank")) { //은행
+        if (intent.hasExtra("bank")) { //은행
             bank = intent.getStringExtra("bank").toString()
             tv_receive_bank.setText(bank)
 
         }
 
         btn_send_complete.setOnClickListener {
-            val intent = Intent(this, SendCompleteActivity::class.java)
-            intent.putExtra("imgReceiver", imgReceiver)
-            intent.putExtra("moneyReceiver", moneyReceiver)
-            intent.putExtra("bank", bank)
-            intent.putExtra("transferMoney", transferMoney)
-            startActivityForResult(intent, SENDING_COMPLETE)
+
+            val builder = AlertDialog.Builder(this)
+            val dialogBar: View = layoutInflater.inflate(R.layout.progress_bar, null)
+            dialogBar.tv_progress_bar.setText("송금중")
+            builder.setView(dialogBar)
+            val alertDialog = builder.create()
+            alertDialog.show()
+
+            val shandler = Handler()
+            val sRunnable = Runnable {
+                alertDialog.dismiss()
+
+                val intent = Intent(this, SendCompleteActivity::class.java)
+                intent.putExtra("imgReceiver", imgReceiver)
+                intent.putExtra("moneyReceiver", moneyReceiver)
+                intent.putExtra("bank", bank)
+                intent.putExtra("transferMoney", transferMoney)
+                startActivityForResult(intent, SENDING_COMPLETE)
+            }
+            shandler.postDelayed(sRunnable, 3000)
+
         }
     }
 

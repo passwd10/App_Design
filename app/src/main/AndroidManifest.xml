@@ -4,6 +4,8 @@
     package="com.example.myapplication2">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera2" android:required="true"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -40,6 +42,8 @@
         <activity android:name=".LookUpActivity" />
         <activity android:name=".Main3Activity" />
         <activity android:name=".SendCompleteActivity"/>
+        <activity android:name=".MyProfileActivity"/>
+        <activity android:name=".MyProfileImgDialog"/>
     </application>
 
 </manifest>

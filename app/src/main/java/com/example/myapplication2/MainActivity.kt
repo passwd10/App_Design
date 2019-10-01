@@ -1,28 +1,16 @@
 package com.example.myapplication2
 
-import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
 import com.google.zxing.integration.android.IntentIntegrator
-import kotlinx.android.synthetic.main.activity_camera.*
 import kotlinx.android.synthetic.main.toss_main_2.*
 import kotlinx.android.synthetic.main.toss_sending.*
-import kotlinx.android.synthetic.main.toss_main_2.toss_send as toss_send1
-import com.google.zxing.integration.android.IntentResult
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.os.Handler
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 
 
 class MainActivity : AppCompatActivity() {
@@ -41,6 +29,9 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var receiveBank: String   //받을 은행
     lateinit var receiveAccount: String //받을 계좌
+
+    lateinit var mHandler: Handler
+    lateinit var mRunnable: Runnable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -257,19 +248,32 @@ class MainActivity : AppCompatActivity() {
             if (result.contents == null) {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show()
             } else {
-                val mHandler = Handler()
-                mHandler.postDelayed({
+                mHandler = Handler()
+                //Dialog 띄우기
+                val builder = AlertDialog.Builder(this)
+                val dialogBar : View = layoutInflater.inflate(R.layout.progress_bar,null)
+                builder.setView(dialogBar)
+                val alertDialog = builder.create()
+                alertDialog.show()
 
+                mRunnable = Runnable {
+                    alertDialog.dismiss() //dialog창 종료
                     btn_delete_account.visibility = View.VISIBLE //삭제버튼 출력
                     receiveBank = result.contents.substring(0, 6) //받을 은행
                     receiveAccount = result.contents //계좌 전체
                     tv_main_bank.setText(receiveAccount)
-                }, 3000)
+                }
+
+                mHandler.postDelayed(
+                    mRunnable
+                    , 3000
+                )
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
+
 
     var firstTime: Long = 0
     var secondTime: Long = 0

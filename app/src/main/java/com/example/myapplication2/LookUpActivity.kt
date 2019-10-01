@@ -23,17 +23,16 @@ class LookUpActivity : AppCompatActivity() {
     val OPENED_CODE = 444       //개설
     val AllSET_CODE = 555       //전체설정
     val NOTICE_CODE = 888       //알림
+    val MY_PROFILE = 1000        //내 정보
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_toss_lookup)
 
-        btn_about_me.setOnClickListener {
-            val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Theme_AppCompat_Light_Dialog))
-            builder.setTitle("\n지문으로 인증해주세요")
-            builder.setMessage("\t비밀번호 직접 입력\n")
-            builder.setNegativeButton("취소",null)
-            builder.show()
+        toss_lookup_profile.setOnClickListener {
+
+            val intent = Intent(this, MyProfileActivity::class.java)
+            startActivityForResult(intent, MY_PROFILE)
         }
 
         btn_toss_main.setOnClickListener {
