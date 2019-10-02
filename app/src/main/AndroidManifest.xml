@@ -5,6 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-feature android:name="android.hardware.camera2" android:required="true"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
@@ -43,7 +45,8 @@
         <activity android:name=".Main3Activity" />
         <activity android:name=".SendCompleteActivity"/>
         <activity android:name=".MyProfileActivity"/>
-        <activity android:name=".MyProfileImgDialog"/>
+        <activity android:name=".MyProfileImgDialog"
+            android:theme="@style/ThemeDialog"/>
     </application>
 
 </manifest>
