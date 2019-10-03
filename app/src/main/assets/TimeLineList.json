@@ -1,0 +1,18 @@
+{
+  "CALENDAR" : [
+    {
+      "date" : "0925",
+      "money" : "1000",
+      "contents" : "김밥천국",
+      "hour" : "12",
+      "minute": "10"
+    },
+    {
+      "date" : "0925",
+      "money" : "5000",
+      "contents" : "맥도날드",
+      "hour" : "16",
+      "minute": "20"
+    }
+  ]
+}
