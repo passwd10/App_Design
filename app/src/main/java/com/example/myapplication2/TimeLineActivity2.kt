@@ -58,6 +58,8 @@ class TimeLineActivity2 : AppCompatActivity() {
         pref.edit()
     }
 
+    private val dataList: MutableList<MutableList<String>> = mutableListOf() //2차원배열
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_time_line)
@@ -68,13 +70,16 @@ class TimeLineActivity2 : AppCompatActivity() {
 
         //현재날짜를 date 변수에 저장
         val currentTime = Calendar.getInstance().time
-        val monthFormat = SimpleDateFormat("M", Locale.getDefault())
+        val yearFormat = SimpleDateFormat("yyyy", Locale.getDefault())
+        val monthFormat = SimpleDateFormat("MM", Locale.getDefault())
         val dayFormat = SimpleDateFormat("dd", Locale.getDefault())
+        val year = yearFormat.format(currentTime)
         val month = monthFormat.format(currentTime)
         val day = dayFormat.format(currentTime)
 
-        date = "${month}월 ${day}일" //현재 날짜
-        tv_timeline_date.setText(date) // 화면첫 실행시에 현재날짜를 넣어줌
+        var timelineDate = "${month}월 ${day}일" //현재 날짜
+        date = "${year}${month}${day}" //현재 날짜
+        tv_timeline_date.setText(timelineDate) // 화면첫 실행시에 현재날짜를 넣어줌
 
         // recyclerview 터치 이벤트
         rv_timeline_list.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
@@ -116,15 +121,23 @@ class TimeLineActivity2 : AppCompatActivity() {
 
         //달력날짜를 클릭할때마다 tv_timeline_date 변경됨
         calender_view.setOnDateChangeListener { calendarView, year, month, day ->
-            date = "${month + 1}월 ${day}일"
+            if (day < 10) {
+                date = "${year}${month + 1}0${day}"
+                timelineDate = "${month + 1}월 0${day}일" //현재 날짜
+            } else {
+                date = "${year}${month + 1}${day}"
+                timelineDate = "${month + 1}월 ${day}일" //현재 날짜
+            }
             Log.d("TAG", date)
 
-            tv_timeline_date.setText(date)
+            tv_timeline_date.setText(timelineDate)
 
             adapter.items.clear() //화면 초기화
             adapter.notifyDataSetChanged()
 
-            val nowDateSize = pref.getInt("${date} Size", 0) // 해당날짜의 데이터사이즈를 불러옴
+            val nowDateSize = pref.getInt(date, 0) // 해당날짜의 데이터사이즈를 불러옴
+
+            dataList.clear() //저장할 배열 초기화
 
             if (nowDateSize == 0) {   //해당날짜의 데이터가 없으면
                 theDateSize = 0      // 해당날짜의 데이터사이즈는 0
@@ -189,15 +202,17 @@ class TimeLineActivity2 : AppCompatActivity() {
 
         val saveData: MutableList<String> = mutableListOf()
 
+        saveData.add(theDateSize.toString())    //데이터 사이즈
         saveData.add(dialogView.et_dialog_money.text.toString())     // 돈
         saveData.add(dialogView.et_dialog_contents.text.toString())  // 내역
         saveData.add(dialogView.et_dialog_hours.text.toString())     // 시간
         saveData.add(dialogView.et_dialog_minutes.text.toString())   // 분
 
+        dataList.add(theDateSize,saveData)
+
         theDateSize++ // 해당날짜의 데이터사이즈 증가
 
-        setStringMutablePref("${date} ${theDateSize}th", saveData)    // MutableList -> Json
-
+        setStringMutablePref(date, dataList)    // MutableList -> Json
 
         adapter.addItems(
             TimeLineItem(
@@ -208,18 +223,13 @@ class TimeLineActivity2 : AppCompatActivity() {
                 dialogView.et_dialog_minutes.text.toString()
             )
         )
-
-        timeLineSize++
-
-        editor.putInt("${date} Size", theDateSize).apply()
-        editor.putInt("TimeLineSize", timeLineSize).apply()
     }
 
     //Mutablelist를 JSON으로 변환하여 SharedPreferences에 String을 저장하는 함수
-    private fun setStringMutablePref(key: String, valueList: MutableList<String>) {
+    private fun setStringMutablePref(key: String, valueList: MutableList<MutableList<String>>) {
 
         val jsonArray = JSONArray() // JsonArray 생성
-        for (i in 0..valueList.size - 1) {
+        for (i in 0 until valueList.size) {
             jsonArray.put(valueList.get(i)) // Mutablelist를 jsonArray에 넣어줌
         }
         if (!valueList.isEmpty()) {
@@ -290,7 +300,7 @@ class TimeLineActivity2 : AppCompatActivity() {
                     reviseData.add(dialogMinutes.text.toString())   // 분
 
                     //수정한 데이터를 SharedPreferences에 넣어준다
-                    setStringMutablePref("${date} ${itemPosition + 1}th", reviseData)
+                    //setStringMutablePref("${date} ${itemPosition + 1}th", reviseData)
 
                     //수정한 내용을 화면에 적용
                     adapter.items[itemPosition].timeLineMoney = dialogMoney.text.toString()
@@ -311,14 +321,14 @@ class TimeLineActivity2 : AppCompatActivity() {
                     //SharedPreferences에서 데이터 삭제
                     editor.remove("${date} ${i}th").apply()
 
-                    if (i <= theDateSize - 1) {
-                        //삭제한 데이터 바로 다음에 있는 데이터를 삭제한데이터 자리에 넣어줌
-                        setStringMutablePref(
-                            "${date} ${i}th",
-                            getStringMutablePref("${date} ${i + 1}th")
-                        )
-
-                    }
+//                    if (i <= theDateSize - 1) {
+//                        //삭제한 데이터 바로 다음에 있는 데이터를 삭제한데이터 자리에 넣어줌
+//                        setStringMutablePref(
+//                            "${date} ${i}th",
+//                            getStringMutablePref("${date} ${i + 1}th")
+//                        )
+//
+//                    }
                 }
 
                 adapter.deleteItems(itemPosition)
