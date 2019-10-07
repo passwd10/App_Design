@@ -1,6 +1,8 @@
 package com.example.myapplication2
 
+import android.app.ProgressDialog.show
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -8,18 +10,17 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
 import android.view.*
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_time_line.*
+import kotlinx.android.synthetic.main.activity_time_line.view.*
 import kotlinx.android.synthetic.main.timeline_dialog_custom.*
 import kotlinx.android.synthetic.main.timeline_dialog_custom.view.*
+import kotlinx.android.synthetic.main.timeline_item.*
 import kotlinx.android.synthetic.main.toss_main_2.*
 import kotlinx.android.synthetic.main.toss_main_2.btn_toss_allset
 import kotlinx.android.synthetic.main.toss_main_2.btn_toss_lookup
@@ -33,6 +34,7 @@ import java.io.InputStream
 import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class TimeLineActivity2 : AppCompatActivity() {
 
@@ -107,10 +109,15 @@ class TimeLineActivity2 : AppCompatActivity() {
         btn_add_timeline.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             val dialogView = layoutInflater.inflate(R.layout.timeline_dialog_custom, null)
-            builder.setView(dialogView).setPositiveButton("확인") { dialogInterface, i ->
+
+            dialogView.cb_dialog_expenditure.isChecked = true
+            dialogCheckBox(dialogView) //체크박스 관리
+
+            builder.setView(dialogView).setPositiveButton("확인") { _, _ ->
                 saveData(dialogView)
             }
-                .setNegativeButton("취소") { dialogInterface, i -> }
+                .setNegativeButton("취소") { _, _ -> }
+
                 .show()
 
         }
@@ -184,15 +191,23 @@ class TimeLineActivity2 : AppCompatActivity() {
             for (i in 0 until nowDateSize) {
                 dataList = getStringMutablePref(date) //mutable로 변경
 
-                val splitData: List<String> = dataList[i].split(",", "[", "]")   // , 를 기준으로 자름
+                val splitData: List<String> = dataList[i].split(",", "[", "]"," ")   // , 를 기준으로 자름
+                val plusminus : String
+                if (splitData[1] == "true") {
+                    plusminus = "-"
+                } else {
+                    plusminus = "+"
+                }
                 adapter.addItems(   //화면에 출력
 
                     TimeLineItem(
+                        splitData[1].toBoolean(),
                         R.drawable.question,
-                        splitData[1],    // 돈
-                        splitData[2],    // 내역
-                        splitData[3],    // 시간
-                        splitData[4]     // 분
+                        plusminus,
+                        splitData[3],    // 돈
+                        splitData[5],    // 내역
+                        splitData[7],    // 시간
+                        splitData[9]     // 분
                     )
                 )
             }
@@ -205,6 +220,7 @@ class TimeLineActivity2 : AppCompatActivity() {
 
         val saveData: MutableList<String> = mutableListOf()
 
+        saveData.add(dialogView.cb_dialog_expenditure.isChecked.toString()) //지출부분이 체크돼있나
         saveData.add(dialogView.et_dialog_money.text.toString())     // 돈
         saveData.add(dialogView.et_dialog_contents.text.toString())  // 내역
         saveData.add(dialogView.et_dialog_hours.text.toString())     // 시간
@@ -216,15 +232,36 @@ class TimeLineActivity2 : AppCompatActivity() {
 
         setStringMutablePref(date, dataList)    // MutableList -> Json
 
+        val plusminus : String
+        if(dialogView.cb_dialog_expenditure.isChecked.toString() == "true") {
+            plusminus = "-"
+        } else {
+            plusminus = "+"
+        }
         adapter.addItems(
             TimeLineItem(
+                dialogView.cb_dialog_expenditure.isChecked,
                 R.drawable.question,
+                plusminus,
                 dialogView.et_dialog_money.text.toString(),
                 dialogView.et_dialog_contents.text.toString(),
                 dialogView.et_dialog_hours.text.toString(),
                 dialogView.et_dialog_minutes.text.toString()
             )
         )
+    }
+
+    private fun dialogCheckBox(dialogView: View) { //switch 선택시
+
+        //dialogView.cb_dialog_expenditure.isChecked = true //처음엔 지출부분이 체크돼있음
+
+        dialogView.cb_dialog_expenditure.setOnClickListener{
+            dialogView.cb_dialog_income.isChecked = false
+        }
+        dialogView.cb_dialog_income.setOnClickListener{
+            dialogView.cb_dialog_expenditure.isChecked = false
+        }
+
     }
 
     //Mutablelist를 JSON으로 변환하여 SharedPreferences에 String을 저장하는 함수
@@ -280,6 +317,7 @@ class TimeLineActivity2 : AppCompatActivity() {
             R.id.revise_list -> { //수정
 
                 //수정첫 처음 값을 변수에 저장
+                val firstExpenditure: Boolean = adapter.items[itemPosition].timelineExpenditure
                 val firstMoney: String = adapter.items[itemPosition].timeLineMoney
                 val firstContents: String = adapter.items[itemPosition].timeLineContents
                 val firstHour: String = adapter.items[itemPosition].timeLineHours
@@ -288,17 +326,22 @@ class TimeLineActivity2 : AppCompatActivity() {
                 //수정클릭시에 나오는 dialog 화면
                 val builder = AlertDialog.Builder(this)
                 val dialogView = layoutInflater.inflate(R.layout.timeline_dialog_custom, null)
+                val dialogExpenditure = dialogView.findViewById<CheckBox>(R.id.cb_dialog_expenditure)
+                val dialogIncome = dialogView.findViewById<CheckBox>(R.id.cb_dialog_income)
                 val dialogMoney = dialogView.findViewById<EditText>(R.id.et_dialog_money)
                 val dialogContents = dialogView.findViewById<EditText>(R.id.et_dialog_contents)
                 val dialogHours = dialogView.findViewById<EditText>(R.id.et_dialog_hours)
                 val dialogMinutes = dialogView.findViewById<EditText>(R.id.et_dialog_minutes)
 
                 //수정화면에서 수정전의 값을 출력
+                dialogExpenditure.isChecked = firstExpenditure
+                dialogIncome.isChecked = !firstExpenditure
                 dialogMoney.setText(firstMoney)
                 dialogContents.setText(firstContents)
                 dialogHours.setText(firstHour)
                 dialogMinutes.setText(firstMinute)
 
+                dialogCheckBox(dialogView)
                 //값 수정
                 builder.setView(dialogView).setPositiveButton("확인") { dialogInterface, i ->
 
@@ -307,6 +350,7 @@ class TimeLineActivity2 : AppCompatActivity() {
                     dataList.removeAt(itemPosition) //해당내역 삭제
                     //삭제한 자리에 추가
 
+                    reviseData.add(dialogExpenditure.isChecked.toString()) //지출?수입?
                     reviseData.add(dialogMoney.text.toString())     // 돈
                     reviseData.add(dialogContents.text.toString())  // 내역
                     reviseData.add(dialogHours.text.toString())     // 시간
@@ -318,6 +362,12 @@ class TimeLineActivity2 : AppCompatActivity() {
                     setStringMutablePref(date, dataList)
 
                     //수정한 내용을 화면에 적용
+                    if(dialogExpenditure.isChecked.toString() == "true") {
+                        adapter.items[itemPosition].timeLinePlusMinus = "-"
+                    } else {
+                        adapter.items[itemPosition].timeLinePlusMinus = "+"
+                    }
+                    adapter.items[itemPosition].timelineExpenditure = dialogExpenditure.isChecked
                     adapter.items[itemPosition].timeLineMoney = dialogMoney.text.toString()
                     adapter.items[itemPosition].timeLineContents = dialogContents.text.toString()
                     adapter.items[itemPosition].timeLineHours = dialogHours.text.toString()

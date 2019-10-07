@@ -7,10 +7,14 @@ import android.util.Log
 import android.view.View
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.toss_main_2.*
-import kotlinx.android.synthetic.main.toss_sending.*
 import android.os.Handler
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.iid.FirebaseInstanceId
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,20 +44,48 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.toss_main_2)
 
         var is_first_input = true;
-
         val btn_notice: ImageButton = findViewById(R.id.btn_notice)
+        var inputCnt = 0    // 버튼 누른 횟수
+        var inputMoney = 0  // 송금금액
 
         toss_send.visibility = View.GONE
         btn_delete_account.visibility = View.INVISIBLE //계좌 삭제 버튼
+        MyFirebaseMessagingService()
+
+        val add_number = AnimationUtils.loadAnimation(this, R.anim.num_translate)    //애니매이션
+        add_number.duration = 300
+
+        val clear_number =
+            AnimationUtils.loadAnimation(this, R.anim.deltet_num_translate) //애니매이션 삭제
+        clear_number.duration = 300
+
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("TAG", "getInstanceId failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new Instance ID token
+            val token = task.result?.token
+
+            // Log and toast
+            val msg = getString(R.string.msg_token_fmt, token)
+            Log.d("TAG", msg)
+            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+        })
+
 
         btn0.setOnClickListener {
             if (is_first_input == true) {
 
             } else {
                 tv_result_window.append("0")
+                tv_result_window.text
+                tv_result_window.startAnimation(add_number)
+
+                toss_send.visibility = View.VISIBLE
+                toss_bottom_menu.visibility = View.GONE
             }
-            toss_send.visibility = View.VISIBLE
-            toss_bottom_menu.visibility = View.GONE
         }
 
         btn1.setOnClickListener {
@@ -171,13 +203,18 @@ class MainActivity : AppCompatActivity() {
                         tv_result_window.text.length - 1
                     )
                 )
+                tv_result_window.startAnimation(clear_number)
+
             }
 
         }
 
         btn_all_clear.setOnClickListener {
             is_first_input = true
+
             tv_result_window.setText("0")
+            tv_result_window.startAnimation(add_number)
+
             toss_send.visibility = View.GONE
             toss_bottom_menu.visibility = View.VISIBLE
         }
@@ -251,7 +288,7 @@ class MainActivity : AppCompatActivity() {
                 mHandler = Handler()
                 //Dialog 띄우기
                 val builder = AlertDialog.Builder(this)
-                val dialogBar : View = layoutInflater.inflate(R.layout.progress_bar,null)
+                val dialogBar: View = layoutInflater.inflate(R.layout.progress_bar, null)
                 builder.setView(dialogBar)
                 val alertDialog = builder.create()
                 alertDialog.show()
@@ -288,7 +325,6 @@ class MainActivity : AppCompatActivity() {
         } else Toast.makeText(this, "뒤로가기 버튼을 한 번 더 누르시면 종료", Toast.LENGTH_SHORT).show()
         firstTime = System.currentTimeMillis()
     }
-
 
     public override fun onStart() {
         super.onStart()

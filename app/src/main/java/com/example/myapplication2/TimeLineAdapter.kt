@@ -37,6 +37,7 @@ class TimeLineAdapter : RecyclerView.Adapter<TimeLineAdapter.TimelineViewHolder>
 
     override fun onBindViewHolder(holder: TimelineViewHolder, position: Int) {
         holder.timeLineImageView.setImageResource(items[position].timelineImgSource)
+        holder.timeLinePlusMinus.text = items[position].timeLinePlusMinus
         holder.timeLineMoney.text = items[position].timeLineMoney
         holder.timeLineContents.text = items[position].timeLineContents
         holder.timeLineHours.text = items[position].timeLineHours
@@ -69,6 +70,7 @@ class TimeLineAdapter : RecyclerView.Adapter<TimeLineAdapter.TimelineViewHolder>
         }
 
         var timeLineImageView: ImageView = itemView.iv_timeline_img
+        var timeLinePlusMinus: TextView = itemView.tv_timeline_plus_minus
         var timeLineMoney: TextView = itemView.tv_timeline_money
         var timeLineContents: TextView = itemView.tv_timeline_contents
         var timeLineHours: TextView = itemView.tv_timeline_hour

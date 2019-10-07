@@ -40,7 +40,7 @@ class LookUpActivity : AppCompatActivity() {
         }
 
         btn_toss_timeline.setOnClickListener {
-            val intent = Intent(this, TimeLineActivity::class.java)
+            val intent = Intent(this, TimeLineActivity2::class.java)
             startActivityForResult(intent, TIMELINE_CODE)
             finish()
         }
