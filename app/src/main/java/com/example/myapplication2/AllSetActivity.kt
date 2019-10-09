@@ -24,6 +24,7 @@ class AllSetActivity : AppCompatActivity() {
     val NOTICE_CODE = 888       //알림
     val HOMEPAGE_CODE = 999     //홈페이지
     val DIAL_CODE = 1111        //전화
+    val SET_LOGIN = 1212        //로그인
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +66,12 @@ class AllSetActivity : AppCompatActivity() {
             if (intent.resolveActivity(packageManager) != null) {
                 startActivityForResult(intent, DIAL_CODE)
             }
+        }
+
+        setLogin.setOnClickListener{
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivityForResult(intent, SET_LOGIN)
+            finish()
         }
     }
 

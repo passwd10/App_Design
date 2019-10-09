@@ -48,7 +48,6 @@ class NoticeActivity : AppCompatActivity() {
 
             editor.putInt("noticeSize", noticeSize).apply() //알림창 크기
 
-
         }
 
 
@@ -97,4 +96,21 @@ class NoticeActivity : AppCompatActivity() {
         )
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 119) {
+            if(resultCode == Activity.RESULT_OK) {
+                adapter.additem(NoticeItem(R.drawable.flash, "행운퀴즈", "새로운 깜짝퀴즈가 열렸습니다.", "광고"))
+
+                editor.putString("noticeTitle${noticeSize}", adapter.items[noticeSize].noticeTitle).apply()
+                editor.putString("noticeContents${noticeSize}", adapter.items[noticeSize].noticeContents).apply()
+                editor.putString("noticeDate${noticeSize}", adapter.items[noticeSize].noticeDate).apply()
+
+                noticeSize++
+
+                editor.putInt("noticeSize", noticeSize).apply() //알림창 크기
+
+            }
+        }
+    }
 }

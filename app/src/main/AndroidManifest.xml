@@ -4,24 +4,28 @@
     package="com.example.myapplication2">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-feature android:name="android.hardware.camera2" android:required="true"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".Appication"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
-        android:name=".Appication"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:hardwareAccelerated="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".DutchPayActivity"/>
+        <activity android:name=".DutchPayActivity" />
         <activity android:name=".CameraActivity" />
         <activity android:name=".SendingActivity" />
         <activity android:name=".NoticeActivity" />
@@ -34,33 +38,41 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity android:name=".OpenedActivity" />
         <activity android:name=".RemittanceActivity" />
         <activity android:name=".AllSetActivity" />
-        <activity android:name=".TimeLineActivity2"/>
+        <activity android:name=".TimeLineActivity2" />
         <activity android:name=".LookUpActivity" />
         <activity android:name=".Main3Activity" />
-        <activity android:name=".SendCompleteActivity"/>
-        <activity android:name=".MyProfileActivity"/>
-        <activity android:name=".MyProfileImgDialog"
-            android:theme="@style/ThemeDialog"/>
-        <meta-data android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/toss"/>
+        <activity android:name=".SendCompleteActivity" />
+        <activity android:name=".MyProfileActivity" />
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".SignUpActivity"/>
+        <activity android:name=".VerifyPhoneActivity"/>
+        <activity android:name=".ProfileActivity"/>
+        <activity
+            android:name=".MyProfileImgDialog"
+            android:theme="@style/ThemeDialog" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/toss" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent"/>
+            android:resource="@color/colorAccent" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="@string/default_notification_channel_id"/>
+            android:value="@string/default_notification_channel_id" />
+
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
     </application>
 
 </manifest>
