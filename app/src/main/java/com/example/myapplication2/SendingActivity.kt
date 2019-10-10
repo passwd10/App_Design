@@ -9,6 +9,8 @@ import android.os.Handler
 import android.util.Log
 import android.view.View
 import androidx.core.os.postDelayed
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_remittance.*
 import kotlinx.android.synthetic.main.progress_bar.*
 import kotlinx.android.synthetic.main.progress_bar.view.*
@@ -31,6 +33,28 @@ class SendingActivity : AppCompatActivity() {
         var moneyReceiver: String = ""
         var transferMoney: String = ""
         var bank: String = ""
+        var tossAccountBalance = "" //토스계좌잔액
+        var tossAccountInt = 0
+        var transferMoneyInt = 0
+
+        val db = FirebaseFirestore.getInstance()
+
+        db.collection("users").get().addOnSuccessListener { result ->
+            for (document in result) {
+                if (FirebaseAuth.getInstance().uid == document.id) {
+                    tossAccountBalance = document.data.get("토스계좌잔액").toString()
+                    toss_money.setText(tossAccountBalance)
+                    tossAccountInt = tossAccountBalance.toInt()
+                    transferMoneyInt = transferMoney.toInt()
+                    tossAccountInt -= transferMoneyInt
+                }
+                Log.d("TAGGG", "${document.id} => ${document.data.get("토스계좌잔액")}")
+            }
+
+        }.addOnFailureListener { exception ->
+            Log.w("TAGGG", "Error getting documents.", exception)
+        }
+
 
         if (intent.hasExtra("imgReceiver")) { //송금받는사람 이미지 받아오기
 
@@ -53,9 +77,8 @@ class SendingActivity : AppCompatActivity() {
         if (intent.hasExtra("bank")) { //은행
             bank = intent.getStringExtra("bank").toString()
             tv_receive_bank.setText(bank)
-
         }
-
+        
         btn_send_complete.setOnClickListener {
 
             val builder = AlertDialog.Builder(this)
@@ -76,8 +99,16 @@ class SendingActivity : AppCompatActivity() {
                 intent.putExtra("transferMoney", transferMoney)
                 startActivityForResult(intent, SENDING_COMPLETE)
             }
-            shandler.postDelayed(sRunnable, 3000)
+            shandler.postDelayed(sRunnable, 1500)
 
+            val db2 = FirebaseFirestore.getInstance()
+
+            db2.collection("users").document(FirebaseAuth.getInstance().uid.toString())
+                .update("토스계좌잔액", tossAccountInt)
+                .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully updated!") }
+                .addOnFailureListener { e ->
+                    Log.w("TAG", "Error adding document", e)
+                }
         }
     }
 

@@ -3,12 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.myapplication2">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-feature
         android:name="android.hardware.camera2"
         android:required="true" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -25,38 +24,58 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".DutchPayActivity" />
-        <activity android:name=".CameraActivity" />
-        <activity android:name=".SendingActivity" />
-        <activity android:name=".NoticeActivity" />
-        <activity android:name=".Menu1Fragment" />
-        <activity android:name=".Menu2Fragment" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".DutchPayActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".CameraActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".SendingActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".NoticeActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Menu1Fragment"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Menu2Fragment"
+            android:screenOrientation="portrait" />
+        <activity android:name=".SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".OpenedActivity" />
-        <activity android:name=".RemittanceActivity" />
-        <activity android:name=".AllSetActivity" />
-        <activity android:name=".TimeLineActivity2" />
-        <activity android:name=".LookUpActivity" />
-        <activity android:name=".Main3Activity" />
-        <activity android:name=".SendCompleteActivity" />
-        <activity android:name=".MyProfileActivity" />
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".SignUpActivity"/>
-        <activity android:name=".VerifyPhoneActivity"/>
-        <activity android:name=".ProfileActivity"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".OpenedActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".RemittanceActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".AllSetActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".TimeLineActivity2"
+            android:screenOrientation="portrait" />
+        <activity android:name=".LookUpActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Main3Activity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".SendCompleteActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".MyProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".SignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".VerifyPhoneActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ChatActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MyProfileImgDialog"
-            android:theme="@style/ThemeDialog" />
+            android:theme="@style/ThemeDialog"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

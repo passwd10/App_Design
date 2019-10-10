@@ -182,19 +182,20 @@ class MainActivity : AppCompatActivity() {
 
 
         btn_send.setOnClickListener {
+            inputMoney = 0
 
-            inputMoney =
-            pow(inputCnt) * tv_result_window1.text.get(0).toInt()
-            + pow(inputCnt-1)* tv_result_window2.text.get(0).toInt()
+            for(i in 0  until  inputCnt) {
+                inputMoney += pow(inputCnt-i) * resultView.get(i).text.toString().toInt()
+            }
 
             val accountText: String? = tv_main_bank.text.toString()
             if (accountText == "") {
                 val intent = Intent(this, RemittanceActivity::class.java)
-                intent.putExtra("transferMoney", tv_result_window1.text.toString())
+                intent.putExtra("transferMoney", inputMoney.toString())
                 startActivityForResult(intent, SEND_CODE)
             } else {
                 val intent = Intent(this, SendingActivity::class.java)
-                intent.putExtra("transferMoney", tv_result_window1.text.toString()) //송금금액
+                intent.putExtra("transferMoney", inputMoney.toString()) //송금금액
                 intent.putExtra("moneyReceiver", receiveBank) //받는 은행
                 intent.putExtra("bank", receiveAccount) //받는 계좌
                 startActivityForResult(intent, SENDING_CODE)

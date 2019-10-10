@@ -25,6 +25,7 @@ class AllSetActivity : AppCompatActivity() {
     val HOMEPAGE_CODE = 999     //홈페이지
     val DIAL_CODE = 1111        //전화
     val SET_LOGIN = 1212        //로그인
+    val START_DIALOG = 1661     //1대1 대화 시작
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +73,12 @@ class AllSetActivity : AppCompatActivity() {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivityForResult(intent, SET_LOGIN)
             finish()
+        }
+
+        one_to_one_question.setOnClickListener {
+            val intent = Intent(this, ChatActivity::class.java)
+            startActivityForResult(intent, START_DIALOG)
+
         }
     }
 

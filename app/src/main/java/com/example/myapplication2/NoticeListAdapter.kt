@@ -48,7 +48,6 @@ class NoticeListAdapter : RecyclerView.Adapter<ViewHolder>() {
                 holder.tvNoticeRemDate.text = items[position].noticeDate
             }
         }
-
     }
 
     fun additem(item: NoticeItem) {
